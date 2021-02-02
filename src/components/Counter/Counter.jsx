@@ -1,21 +1,27 @@
 import React, {useState} from "react";
 import {connect} from "react-redux";
-import {increment} from "../../reducers/action";
+import {increment,setCounter} from "../../reducers/action";
 import {PropTypes} from "prop-types";
 
 
 Counter.propTypes = {
     counter: PropTypes.number.isRequired,
-    increment: PropTypes.func.isRequired
+    increment: PropTypes.func.isRequired,
+    setCounter: PropTypes.func.isRequired
 };
 
-function Counter({counter, increment}) {
-    console.log(`Counter init: ${counter}`);
-    const [count, setCount] = useState(0);
+function Counter({counter, increment, setCounter}) {
+    const countStorage = parseInt(localStorage.getItem("counter") || 0);
+    const [count, setCount] = useState( countStorage);
+
+    React.useEffect(() => {
+        console.log(`UseEffect: ${count}`);
+        localStorage.setItem("counter", count);
+        setCounter(countStorage);
+    }, [count]);
 
     const handleIncrement = (e) => {
         increment(e?.target?.value);
-        console.log(e?.target?.value);
     };
 
     return (
@@ -46,7 +52,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = dispatch => ({
-    increment: () => dispatch(increment())
+    increment: () => dispatch(increment()),
+    setCounter: (count) => dispatch(setCounter(count))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
