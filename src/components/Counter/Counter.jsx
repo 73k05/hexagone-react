@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 
-
 function Counter() {
     const countStorage = parseInt(localStorage.getItem("counter") || 0);
     const [count, setCount] = useState(countStorage);
@@ -22,8 +21,6 @@ function Counter() {
             </div>
         </div>
     );
-
-
 }
 
 export default Counter;
