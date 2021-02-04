@@ -6,15 +6,18 @@ import reportWebVitals from "./reportWebVitals";
 import {Provider} from "react-redux";
 import {createStore} from "redux";
 import counter from "./reducers/counter";
+import CounterRedux from "./components/Counter/CounterRedux";
 
 const store = createStore(counter);
 
 ReactDOM.render(
     <Provider store={store}>
         <React.StrictMode>
+            {/*<App/>*/}
             <Counter/>
+            <CounterRedux/>
         </React.StrictMode>
-     </Provider>,
+    </Provider>,
     document.getElementById("root")
 );
 
